@@ -1,11 +1,5 @@
 from mcutil import *
 
-# N value for n-gram
-# 1 for monogram
-# 2 for bigram
-# etc.
-N = 7
-
 def train(data, model, run_filter):
     ' '.join(data.split())
     if run_filter:

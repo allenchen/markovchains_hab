@@ -1,6 +1,12 @@
 import collections
 import random
 
+# N value for n-gram
+# 1 for monogram
+# 2 for bigram
+# etc.
+N = 7
+
 class TMap():
     def __init__(self):
         self.stateCountMap = collections.defaultdict(int)
@@ -11,7 +17,6 @@ class TMap():
             self.stateMap[state] = collections.defaultdict(int)
         self.stateMap[state][transition] += 1
         self.stateCountMap[state] += 1
-
         # Add this transition as an observation to lower levels of the
         # state as well (even though this isn't really very efficient)
         for i in xrange(len(state)):
@@ -27,6 +32,7 @@ class TMap():
         if total == 0:
             # Downgrade the state and continue to retry
             for i in xrange(len(state)):
+                print "*",
                 state = state[1:]
                 if (self.stateCountMap[state] > 0):
                     return self.sample(state)
@@ -64,6 +70,7 @@ class MarkovChain():
     def begin_sampling(self):
         node = random.choice(self.nodes.keys())
         #print "Random choice of node: " + node
-        state = random.choice(self.nodes[node].stateMap.keys())
+        state = random.choice(filter(lambda x: len(x) == N-1, 
+                                     self.nodes[node].stateMap.keys()))
         #print "Random choice of state: " + state
         return node,state
