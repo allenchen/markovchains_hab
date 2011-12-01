@@ -12,6 +12,15 @@ class TMap():
         self.stateMap[state][transition] += 1
         self.stateCountMap[state] += 1
 
+        # Add this transition as an observation to lower levels of the
+        # state as well (even though this isn't really very efficient)
+        for i in xrange(len(state)):
+            state = state[1:]
+            if state not in self.stateMap:
+                self.stateMap[state] = collections.defaultdict(int)
+            self.stateMap[state][transition] += 1
+            self.stateCountMap[state] += 1
+
     def sample(self, state):
         #print self.stateMap
         total = self.stateCountMap[state]
@@ -48,11 +57,8 @@ class MarkovChain():
     
     def sample(self, node, state):
         if node not in self.nodes:
-
             # No transition at all found, probably due to bad training data.
-            return None
-                    
-                
+            return None                    
         return self.nodes[node].sample(state)
 
     def begin_sampling(self):
