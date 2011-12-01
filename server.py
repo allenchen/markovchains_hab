@@ -10,8 +10,7 @@ class MainHandler(tornado.web.RequestHandler):
 class GenerateExamples(tornado.web.RequestHandler):
     def post(self):
         model = MarkovChain()
-        train(self.get_argument("corpus"), model, False)
-        
+        train(self.get_argument("corpus"), model, self.get_argument("filter") == "yes")
         self.write(sample(model, int(self.get_argument("length"))) + "<br /><br />")
         self.render("template.html")
 

@@ -25,11 +25,11 @@ def sample(model, length):
         state = state[1:]
         node = sample
         result += sample
-        #print "Node: " + node + " State: " + state
+        print "Node: " + node + " State: " + state
     return result
 
-#model = MarkovChain()
-       
-#train(sample_corpus, model)
-
-#print sample(model, 10000)
+"""
+model = MarkovChain()
+train(sample_corpus, model)
+print sample(model, 10000)
+"""

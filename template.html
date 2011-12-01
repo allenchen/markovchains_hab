@@ -3,6 +3,7 @@ Train a Markov Chain<br /><br />
 <form action="/generate" method="post">
 Training Data: <br />
 <textarea name="corpus" rows=5 cols=70></textarea><br />
-Length: <input type="text" name="length" />
+Length: <input type="text" name="length" /><br />
+Lowercase Filter: <select name="filter"><option value="no" selected>No</option><option value="yes">Yes</option></select>
 <input type="submit" value="Learn and Generate">
 </form>
